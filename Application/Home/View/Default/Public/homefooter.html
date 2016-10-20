@@ -1,0 +1,74 @@
+      <a href="#0" class="cd-top">↑</a>
+        <div class="footer" style="z-index:9999;">
+            <div class="pull-right">
+               <a href="{:U('Admin/Index/index')}" target="_blank">后台登陆</a>&nbsp;&nbsp;<strong>如果你使用本站程序</strong> 请保留友情链接.
+            </div>
+            <div>
+                <strong>Copyright</strong> <a href="http://www.lcm.wang/">里程密</a> &copy; 2014-2016
+                管理员邮箱：<a href = "mailto:{$SiteInfo.admin_email}">{$SiteInfo.admin_email}</a>&nbsp; &nbsp;统计：{$SiteInfo.statistics}&nbsp; &nbsp;ICP备案：{$SiteInfo.icp}
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+    <script src="__PUBLIC__/Default/js/jquery-2.1.1.js"></script>
+    <script src="__PUBLIC__/Default/js/jquery-ui-1.10.4.min.js"></script>
+    <script src="__PUBLIC__/Default/js/bootstrap.min.js"></script>
+    <!-- 手风琴菜单 -->
+    <script src="__PUBLIC__/Default/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <!-- 滚动条 -->
+    <script src="__PUBLIC__/Default/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- 导航菜单 -->
+    <script src="__PUBLIC__/Default/js/inspinia.js"></script>
+    <!-- 进度条 -->
+    <script src="__PUBLIC__/Default/js/plugins/pace/pace.min.js"></script>
+
+    <script>
+        var s_url= "active_{$is_active}";
+        var now_url = '';
+        for(var i = 0;i<$("#side-menu li").length;i++){
+            now_url=$("#side-menu li a").eq(i).attr("is_active");
+            if(now_url == s_url){
+                $("#side-menu a").eq(i).parent().addClass("active");
+                $("#side-menu a").eq(i).parent().parent().parent().addClass("active");
+                $("#side-menu a").eq(i).parent().parent().addClass("in");
+            }else{
+                $("#side-menu a").eq(i).parent().removeClass("active");
+            }
+        }
+        </script>
+        <!-- 返回顶部 -->
+        <script>
+                jQuery(document).ready(function($){
+    // browser window scroll (in pixels) after which the "back to top" link is shown
+    var offset = 300,
+        //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+        offset_opacity = 1200,
+        //duration of the top scrolling animation (in ms)
+        scroll_top_duration = 700,
+        //grab the "back to top" link
+        $back_to_top = $('.cd-top');
+
+    //hide or show the "back to top" link
+    $(window).scroll(function(){
+        ( $(this).scrollTop() > offset ) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
+        if( $(this).scrollTop() > offset_opacity ) {
+            $back_to_top.addClass('cd-fade-out');
+        }
+    });
+
+    //smooth scroll to top
+    $back_to_top.on('click', function(event){
+        event.preventDefault();
+        $('body,html').animate({
+            scrollTop: 0 ,
+            }, scroll_top_duration
+        );
+    });
+
+});
+        </script>
+</body>
+
+</html>

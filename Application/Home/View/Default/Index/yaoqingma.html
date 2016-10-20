@@ -1,0 +1,89 @@
+<!-- 调用头部文件 -->
+<include file = "Public:homeheader" title = "邀请码与友链-{$SiteInfo.title}" />
+<!-- 本页导航栏开始 -->
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>首页</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="__APP__">首页</a>
+            </li>
+            <li class="active">
+                <strong>邀请码与友链</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<!-- 本页导航栏结束 -->
+
+<!-- 正文开始 -->
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-6">
+            <center><h1>获得本站邀请码</h1></center>
+                <div class="progress progress-striped active">
+                                    <div style="width: 33%" class="progress-bar progress-bar-success">
+                                        <span class="sr-only">30% Complete (success)</span>
+                                    </div>
+                                    <div style="width: 33%" class="progress-bar progress-bar-warning">
+                                        <span class="sr-only">15% Complete (warning)</span>
+                                    </div>
+                                    <div style="width: 34%" class="progress-bar progress-bar-danger">
+                                        <span class="sr-only">40% Complete (danger)</span>
+                                    </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                        <i class="fa fa-info-circle"></i>为什么需要邀请码注册？
+                        </div>
+                        <div class="panel-body">
+                        {$SiteInfo.code}
+                        </div>
+                    </div>
+        </div>
+        <div class="col-lg-6">
+        <center><h1>友情链接</h1></center>
+                <div class="progress progress-striped active">
+                                    <div style="width: 33%" class="progress-bar progress-bar-success">
+                                        <span class="sr-only">30% Complete (success)</span>
+                                    </div>
+                                    <div style="width: 33%" class="progress-bar progress-bar-warning">
+                                        <span class="sr-only">15% Complete (warning)</span>
+                                    </div>
+                                    <div style="width: 34%" class="progress-bar progress-bar-danger">
+                                        <span class="sr-only">40% Complete (danger)</span>
+                                    </div>
+                    </div>
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                        <i class="fa fa-info-circle"></i>友情链接说明
+                        </div>
+                        <div class="panel-body">
+                        {$SiteInfo.friend_link}
+                        </div>
+                    </div>
+        </div>
+    </div>
+    <div class="row">
+            <ul class="sortable-list connectList agile-list ui-sortable">
+            <foreach name = "friendlinkarr" item = "vo">
+                <div class = "col-lg-3">
+                                <li class="{$vo.type}-element">
+                                    {$vo.content}
+                                    <div class="agile-detail">
+                                        <a href="{$vo.url}" class="pull-right btn btn-xs btn-{$vo.type}" target="_blank">{$vo.title}</a>
+                                        <i class="fa fa-clock-o"></i>{$vo.ctime|date = "Y-m-d",###}
+                                    </div>
+                                </li>
+                </div>
+            </foreach>
+                            </ul>
+    </div>
+    </div>
+<!-- 正文结束 -->
+
+<!-- 调用脚部文件 -->
+<include file = "Public:homefooter"  />

@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>[title]</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="__PUBLIC__/Default/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="__PUBLIC__/Default/js/jquery-2.1.1.js"></script>
+<!-- Custom Theme files -->
+<link href="__PUBLIC__/Default/user/css/style.css" rel='stylesheet' type='text/css' />
+<!-- Custom Theme files -->
+<!---- start-smoth-scrolling---->
+<script type="text/javascript" src="__PUBLIC__/Default/user/js/move-top.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Default/user/js/easing.js"></script>
+<script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $(".scroll").click(function(event){
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+                });
+            });
+</script>
+</head>
+<body>
+    <!-- container -->
+        <!-- header -->
+        <div id="home" class="single_header">
+            <div class="container">
+                <!-- -->
+                <div class="nav-icon">
+                     <a href="#" class="right_bt" id="activator"><span> </span> </a>
+                </div>
+                 <div class="box" id="box">
+                     <div class="box_content">
+                        <div class="box_content_center">
+                            <div class="form_content">
+                                <div class="menu_box_list">
+                                    <ul>
+                                        <li><a href="{:U('User/index')}">主页</a></li>
+                                        <li><a href="__APP__" style="color:#1ab394;">返回网站</a></li>
+                                        <div class="clear"> </div>
+                                    </ul>
+                                </div>
+                                <a class="boxclose" id="boxclose"> <span> </span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- script-for-box -->
+                 <script type="text/javascript">
+                    var $ = jQuery.noConflict();
+                        $(function() {
+                            $('#activator').click(function(){
+                                $('#box').animate({'top':'0px'},500);
+                            });
+                            $('#boxclose').click(function(){
+                            $('#box').animate({'top':'-700px'},500);
+                            });
+                        });
+                        $(document).ready(function(){
+                        //Hide (Collapse) the toggle containers on load
+                        $(".toggle_container").hide();
+                        //Switch the "Open" and "Close" state per click then slide up/down (depending on open/close state)
+                        $(".trigger").click(function(){
+                            $(this).toggleClass("active").next().slideToggle("slow");
+                                return false; //Prevent the browser jump to the link anchor
+                        });
+
+                    });
+                </script>
+            </div>
+        </div>

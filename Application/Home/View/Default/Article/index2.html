@@ -1,0 +1,81 @@
+<include file = "Article:header" />
+<!-- 正文开始 -->
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12" style="padding:0px;">
+            <div class="col-lg-9">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="text-center article-title" style="margin:20px 0px 20px">
+                            <span class="text-muted">
+                                <h1>
+                                    {$articleInfo.title}
+                                </h1>
+                            </span>
+                            </div>
+                            <div style="margin-bottom:50px;">
+                                        <!-- 音乐 -->
+                                        <link rel="stylesheet" href="__PUBLIC__/Default/music/css/lanrenzhijia.css" type="text/css" />
+                                        <div class="music-player">
+                                          <div class="info">
+                                            <div class="left"> <a href="javascript:;" class="icon-shuffle"></a> <a href="javascript:;" class="icon-heart"></a> </div>
+                                            <div class="center">
+                                              <div class="jp-playlist">
+                                                <ul>
+                                                  <li></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="right"> <a href="javascript:;" class="icon-repeat"></a> <a href="javascript:;" class="icon-share"></a> </div>
+                                      <div class="progress jp-seek-bar"> <span class="jp-play-bar" style="width: 0%"></span> </div>
+                                  </div>
+                                  <div class="controls">
+                                    <div class="current jp-current-time">00:00</div>
+                                    <div class="play-controls">
+                                        <a href="javascript:;" class="icon-previous jp-previous" title="previous"></a>
+                                        <a href="javascript:;" class="icon-play jp-play" title="play"></a>
+                                        <a href="javascript:;" class="icon-pause jp-pause" title="pause"></a>
+                                        <a href="javascript:;" class="icon-next jp-next" title="next"></a>
+                                    </div>
+                                    <div class="volume-level jp-volume-bar">
+                                        <span class="jp-volume-bar-value" style="width: 0%"></span>
+                                        <a href="javascript:;" class="icon-volume-up jp-volume-max" title="max volume"></a>
+                                        <a href="javascript:;" class="icon-volume-down jp-mute" title="mute"></a>
+                                    </div>
+                                </div>
+                                <div id="jquery_jplayer" class="jp-jplayer"></div>
+                            </div>
+                            <script src="__PUBLIC__/Default/music/js/jquery.min.js"></script>
+                            <script src='__PUBLIC__/Default/music/js/jquery.jplayer.min.js'></script>
+                            <script src='__PUBLIC__/Default/music/js/jplayer.playlist.min.js'></script>
+                            <script>
+                                $(document).ready(function(){
+
+
+                                  var playlist = [{
+                                      title:"{$articleInfo.title}",
+                                      artist:"{$userInfo.truename}",
+                                      mp3:"{$articleInfo.mp3}",
+                                          //oga:"http://www.jplayer.org/audio/ogg/Miaow-02-Hidden.ogg",
+                                        poster: "{$articleInfo.pic}"
+                                      }];
+
+                                      var cssSelector = {
+                                        jPlayer: "#jquery_jplayer",
+                                        cssSelectorAncestor: ".music-player"
+                                    };
+
+                                    var options = {
+                                        swfPath: "http://cdnjs.cloudflare.com/ajax/libs/jplayer/2.6.4/jquery.jplayer/Jplayer.swf",
+                                        supplied: "ogv, m4v, oga, mp3"
+                                    };
+
+                                    var myPlaylist = new jPlayerPlaylist(cssSelector, playlist, options);
+
+                                });
+</script>
+<!-- 音乐 -->
+
+</div>
+
+<include file = "Article:footer" />

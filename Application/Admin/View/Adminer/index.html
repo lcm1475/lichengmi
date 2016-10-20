@@ -1,0 +1,113 @@
+<include file="Public/top" title = "里程密-管理员修改" />
+<!-- start left -->
+<include file="Public/left"/>
+<style>
+      .cropit-preview {
+        background-color: #f8f8f8;
+        background-size: cover;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-top: 7px;
+        width: 250px;
+        height: 250px;
+      }
+
+      .cropit-preview-image-container {
+        cursor: move;
+      }
+
+      .image-size-label {
+        margin-top: 10px;
+      }
+    </style>
+<!-- end left -->
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>管理员修改</h2>
+        </div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+                <div class="ibox-content">
+                    <center><h1>修改密码</h1></center>
+                    <form action="{:U('Adminer/changePass')}" method="post">
+                        <div class="form-group">
+                            <label>输入密码</label>
+                            <input  class="form-control required" type="password" name = "passone">
+                        </div>
+                        <div class="form-group">
+                            <label>重复密码</label>
+                            <input  class="form-control required" type="password" name = "passtwo">
+                        </div>
+                        <button type="submit" class="btn btn-primary">确认修改</button>
+                    </form>
+                </div>
+        </div>
+
+        <div class="col-lg-8">
+                <div class="col-lg-6">
+                <div class="ibox-content">
+                    <center><h1>修改头像</h1></center>
+                        <div class="form-group">
+                            <div class="image-editor">
+                              <input type="file" class="cropit-image-input">
+                              <div class="cropit-preview"></div>
+                              <div class="image-size-label">
+                                放大缩小
+                              </div>
+                              <input type="range" class="cropit-image-zoom-input">
+                              <button class="rotate-ccw">左侧旋转</button>
+                              <button class="rotate-cw">右侧旋转</button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary export">确认修改</button>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ibox-content">
+                    <center><h1>当前头像</h1></center>
+                    <img src="{$arr['pic']}" width="100%">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- start footer -->
+    <include file="Public/footer" />
+    <script type="text/javascript" src="__PUBLIC__/Default/pic_cut/js/jquery.cropit.js"></script>
+    <script type="text/javascript">
+        $(function() {
+        $('.image-editor').cropit();
+
+        $('.rotate-cw').click(function() {
+          $('.image-editor').cropit('rotateCW');
+        });
+        $('.rotate-ccw').click(function() {
+          $('.image-editor').cropit('rotateCCW');
+        });
+
+        $('.export').click(function() {
+          var imageData = $('.image-editor').cropit('export');
+          $.ajax({
+           type: "POST",
+           url: "{:U('Adminer/changePic')}",
+           data:{
+                data:imageData
+           },
+           success: function(msg){
+             if(msg =='1'){
+                alert('修改成功')
+             }else{
+                alert('修改失败')
+             }
+           }
+        });
+          // window.open(imageData);
+        });
+      });
+    </script>
+    <!-- end footer -->
+</div>
+

@@ -1,0 +1,116 @@
+<include file = "Default:User:userheader" title = "基本信息-{$SiteInfo.title}" />
+<style>
+      .cropit-preview {
+        background-color: #f8f8f8;
+        background-size: cover;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-top: 7px;
+        width: 250px;
+        height: 250px;
+      }
+
+      .cropit-preview-image-container {
+        cursor: move;
+      }
+
+      .image-size-label {
+        margin-top: 10px;
+      }
+    </style>
+<!-- 调用头部文件 -->
+<!-- 正文开始 -->
+                <div class="container">
+                    <center><h1>基本信息</h1></center>
+                        <div class="mail-box" style="padding:10px;background: #fff;color: #666;">
+                            <div class="form-group">
+                                <label>账号</label>
+                                <input  class="form-control required" type="text" disabled="" value = "{$userInfo.username}">
+                            </div>
+                            <div class="form-group">
+                                <label>注册时间</label>
+                                <input  class="form-control required" type="text" disabled="" value = "{$userInfo.ctime|date='Y-m-d H:i:s',###}">
+                            </div>
+                            <div class="form-group">
+                                <label>上次登录时间</label>
+                                <input  class="form-control required" type="text" disabled="" value = "{$Think.session.mlasttime|date='Y-m-d H:i:s',###}">
+                            </div>
+                            <div class="form-group">
+                                <label>上次登录IP</label>
+                                <input  class="form-control required" type="text" disabled="" value = "{$Think.session.mlastip}">
+                            </div>
+                            <div class="form-group">
+                                <label>账户状态</label>
+                                <input  class="form-control required" type="text" disabled="" <if condition = "$userInfo.status eq 0">value = "启用"<else />value = "禁用"</if>>
+                            </div>
+                            <div class="form-group">
+                                <label>我的昵称</label>
+                                <input  class="form-control required" type="text" disabled="" value = "{$userInfo.truename}">
+                            </div>
+                                <div class="ibox-content">
+                    <center><h1>修改头像</h1></center>
+                        <div class="form-group">
+                            <div class="image-editor">
+                              <input type="file" class="cropit-image-input">
+                              <div class="cropit-preview"></div>
+                              <div class="image-size-label">
+                                放大缩小
+                              </div>
+                              <input type="range" class="cropit-image-zoom-input" style="width: auto;">
+                              <button class="rotate-ccw">左侧旋转</button>
+                              <button class="rotate-cw">右侧旋转</button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary export">确认修改</button>
+                </div>
+                                <hr>
+                                <center><h1>修改密码</h1></center>
+                                <form action="{:U('User/changePass')}" method="post">
+                                    <div class="form-group">
+                                        <label>输入密码</label>
+                                        <input  class="form-control required" type="password" name = "passone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>重复密码</label>
+                                        <input  class="form-control required" type="password" name = "passtwo">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">确认修改</button>
+                                </form>
+                            </div>
+                        </div>
+        <!-- 正文结束 -->
+
+        <!-- 调用脚部文件 -->
+<include file = "Default:User:userfooter" />
+    <script type="text/javascript" src="__PUBLIC__/Default/pic_cut/js/jquery.cropit.js"></script>
+    <script type="text/javascript">
+        $(function() {
+        $('.image-editor').cropit();
+
+        $('.rotate-cw').click(function() {
+          $('.image-editor').cropit('rotateCW');
+        });
+        $('.rotate-ccw').click(function() {
+          $('.image-editor').cropit('rotateCCW');
+        });
+
+        $('.export').click(function() {
+          var imageData = $('.image-editor').cropit('export');
+          $.ajax({
+           type: "POST",
+           url: "{:U('User/changePic')}",
+           data:{
+                data:imageData
+           },
+           success: function(msg){
+             if(msg =='1'){
+                alert('修改成功')
+             }else{
+                alert('修改失败')
+             }
+           }
+        });
+          // window.open(imageData);
+        });
+      });
+    </script>

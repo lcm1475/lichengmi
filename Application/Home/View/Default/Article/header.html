@@ -1,0 +1,41 @@
+<!-- 调用头部文件 -->
+<include file = "Public:homeheader" title = "{$articleInfo.title}-{$SiteInfo.title}" />
+<style>
+    #beijing img{
+        max-width: 100%;
+    }
+    #beijing p{
+        font-size: 14px;
+    }
+    #pinglun .well{
+        margin-top: 0px;
+        background-color: #fff;
+    }
+    #pinglun .feed-element{
+        padding-bottom: 0px;
+    }
+    #pinglun .btn-xs{
+        margin-left: 5px;
+    }
+</style>
+<!-- 本页导航栏开始 -->
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{$articleInfo.title}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="__APP__">首页</a>
+            </li>
+            <li>
+                <a href="{:U('Category/index',array('id'=>$fenleiInfo['id']))}">{$fenleiInfo.name}</a>
+            </li>
+            <li class="active">
+                <strong>{$articleInfo.title}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+
+<!-- 本页导航栏结束 -->

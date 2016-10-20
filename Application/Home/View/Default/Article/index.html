@@ -1,0 +1,21 @@
+<include file = "Article:header" />
+<!-- 正文开始 -->
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12" style="padding:0px;">
+            <div class="col-lg-9">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="text-center article-title" style="margin:20px 0px 20px">
+                            <span class="text-muted">
+                                <h1>
+                                    {$articleInfo.title}
+                                </h1>
+                            </span>
+                        </div>
+                        <div style="margin-bottom:50px;">
+                            <if condition = "$articleInfo.viewtumb eq 0">
+                                <img src="{$articleInfo.pic}" alt="" style="width:100%">
+                            </if>
+                        </div>
+                    <include file = "Article:footer" />

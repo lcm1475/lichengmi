@@ -1,0 +1,247 @@
+<div id = "beijing">
+    <?php
+    $article_id  = 'article_'.$articleInfo['id'];
+    if($articleInfo['articlepassword'] != '' && $_SESSION[$article_id] != $articleInfo['articlepassword']){
+    ?>
+    <form class="form-horizontal" action="{:U('Article/enarticlepassword',array('id'=>$articleInfo['id']))}" method="post">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">请输入文章密码：</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" name="password" require></div>
+            </div>
+            <div class="mail-body text-center tooltip-demo">
+                <button class="btn btn-sm btn-primary" id="adds" type="submit">发送</button>
+            </div>
+        </form>
+        <?php
+    }else{
+    ?>
+    <p style="font-size:14px;" class="text2" >
+        {$articleInfo.content}
+    </p>
+    <if condition = "$articleInfo.file eq true">
+    <div class="mail-box">
+      <div class="mail-body">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+            附件下载
+            </div>
+            <div class="panel-body">
+                    <div class="col-sm-12"><a href="{$articleInfo.file}">点击下载</a></div>
+            </div>
+        </div>
+      </div>
+    </div>
+    </if>
+    <?php
+}
+?>
+</div>
+<hr>
+<div class="row">
+
+    <div class="col-md-12">
+        <h1>回复列表</h1>
+        <div id="pinglun">
+
+        </div>
+        <center>
+            <button type="button" class="btn btn-w-m btn-warning"  id = "more" onclick="replay()">加载更多评论</button>
+        </center>
+    </div>
+    <hr>
+</div>
+<?php
+if(($articleInfo['articlepassword'] != '' && $_SESSION[$article_id] == $articleInfo['articlepassword']) || ($articleInfo['articlepassword'] == '')){
+?>
+<hr>
+<div class="row" id = "huifus">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <i class="fa fa-info-circle"></i>回复操作
+            </div>
+            <div class="panel-body">
+                <form action="{:U('Article/replay',array('id'=>$articleInfo['id']))}" method="post" class="form-horizontal">
+                    <div class="form-group"><label class="col-sm-2 control-label">楼层</label>
+                        <div class="col-sm-10" >
+                            <input type="text" value = "顶楼" disabled="" class="form-control" id = "replay">
+                        </div>
+                    </div>
+                    <input type="hidden" value = "" name = "replay" id = "huifuyincang">
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label">昵称</label>
+                        <div class="col-sm-10"><input class="form-control" type="text" placeholder = "请填写昵称" name = "name" required <if condition = "$Think.session.mid neq ''">value ="{$Think.session.muser}"</if>></div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label" >邮箱</label>
+                        <div class="col-sm-10"><input class="form-control" type="email" placeholder = "请填写邮箱" name = "email" required <if condition = "$Think.session.mid neq ''">value ="{$Think.session.memail}"</if>></div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label" >内容</label>
+                        <div class="col-sm-10">
+                            <textarea name="content" class="form-control" cols="30" rows="5" placeholder = "请填写内容" required style="width:100%;"></textarea>
+                        </div>
+                    </div>
+                    <center>
+                        <div id="embed-captcha"></div>
+                        <p id="wait" class="show">正在加载验证码......</p>
+                        <p id="notice" class="hide">请先拖动验证码到相应位置</p>
+                    </center>
+                    <center><button type="submit" class="btn btn-w-m btn-warning" style="margin-top:10px;" id="popup-submit">提交回复</button></center>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+}
+?>
+</div>
+</div>
+</div>
+<div class="col-lg-3">
+    <div class="widget-head-color-box navy-bg p-lg text-center" style="margin-top:0px;">
+        <div class="m-b-md">
+            <h2 class="font-bold no-margins">
+                {$userInfo.truename}
+            </h2>
+            <small>注册会员</small>
+        </div>
+        <img src="{$userInfo.pic}" class="img-circle circle-border m-b-md" alt="profile" height="150px;">
+    </div>
+    <div class="widget-text-box">
+        <p><span class="label label-success"  style="font-size:12px;">发布时间：{$articleInfo.ctime|date ='Y-m-d H:i:s',###}</span></p>
+        <p><span class="label label-success"  style="font-size:12px;">修改时间：{$articleInfo.edittime|date ='Y-m-d H:i:s',###}</span></p>
+        <p><span class="label label-success"  style="font-size:12px;">查看次数：{$articleInfo.view}</span></p>
+        <p><span class="label label-success"  style="font-size:12px;">评论次数：{$articleInfo.comment}</span></p>
+    </div>
+    <div class="widget lazur-bg p-xl text-left" style="padding-left:5px;padding-right:5px;">
+        <center><h2>TA的最新文章</h2></center>
+        <ul class="todo-list m-t ui-sortable" style="color:#000;">
+            <foreach name ="zuixin" item = "vo">
+                <li>
+                    <span class="m-l-xs"><a href="{:U('Article/index',array('id'=>$vo['id']))}">{$vo.title|msubstr=0,10,'utf-8',true}</a></span>
+                </li>
+            </foreach>
+        </ul>
+    </div>
+    <div class="widget red-bg p-lg text-center" style="padding:10px;margin-bottom:50px;padding-left: 5px;">
+        <div class="m-b-md" style="margin-bottom:15px;">
+            <div><i class="fa fa-bell fa-4x"></i></div>
+            <button type="button" class="btn btn-w-m btn-info share" style="margin-top:15px;" id = "luandian">别点我</button>
+            <div id="socialShare"></div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+</div>
+</div>
+<!-- 正文结束 -->
+
+<!-- 调用脚部文件 -->
+<include file = "Public:homefooter"  />
+<script>
+    function huifuss(a){
+        $("#replay").val("回复"+a);
+        $("#huifuyincang").val(a);
+    }
+    var num = 0; //当前加载的条数
+    var id = {$Think.get.id};//当前文章ID
+    var userid = {$userInfo.id};//文章所属用户ID
+    var pic = '';//定义图片
+    var tm = '';//定义时间
+    var shenfen = '';//定义身份
+    var jjj ='';//定义全局ajax返回数据变量
+    var str = '';//定义HTML字符串变量
+    function replay(){
+        $.ajax({
+         type: "POST",
+         url: "{:U('Article/get_replay')}",
+         data: "id="+id+"&num="+num,
+         success: function(msg){
+           if(msg == 5){
+            $("#more").html('没有更多内容了');
+        }else{
+            str = '';
+            jjj = eval(msg);
+            console.log(jjj)
+            for (var i in jjj)
+            {
+                if(jjj[i].replay == 0) replay_str(jjj[i])
+            }
+            $("#pinglun").append(str);
+            num = num+10;
+        }
+    }
+});
+    }
+    replay();
+
+    function replay_str(ddd){
+        if(ddd.uid == userid) shenfen = '<a class="btn btn-xs btn-danger">楼主</a>';
+                tm = new Date(parseInt(ddd.ctime) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+                ddd.pic ==null ? pic = '__PUBLIC__/Uploads/default.png' :  pic =ddd.pic;
+        str += '<div class="feed-element"><a class="pull-left"><img alt="'+ddd.name+'" class="img-circle" src="'+pic+'"></a><div class="media-body"><div class="well" style = "font-size:14px;"><span class = "label label-info" style = "font-size:12px;">'+ddd.name+"</span><div class='pull-right'></div><small class='pull-right'>"+tm+'</small><a class="btn btn-xs btn-warning" href = "#huifus"onclick="huifuss('+ddd.id+')">回复</a>'+shenfen+'<br/><br>'+ddd.content+'</div>';
+        if(ddd.son != undefined){
+            for(var s = 0;s<ddd.son.length;s++){
+                replay_str(jjj[ddd.son[s]]);
+            }
+        }
+        str += '</div></div>';
+    }
+</script>
+<!-- 回复验证码 -->
+<script src="http://static.geetest.com/static/tools/gt.js"></script>
+<script>
+    var handlerEmbed = function (captchaObj) {
+        $("#popup-submit").click(function (e) {
+            var validate = captchaObj.getValidate();
+            if (!validate) {
+                $("#notice")[0].className = "show";
+                setTimeout(function () {
+                    $("#notice")[0].className = "hide";
+                }, 2000);
+                e.preventDefault();
+            }
+        });
+        captchaObj.appendTo("#embed-captcha");
+        captchaObj.onReady(function () {
+            $("#wait")[0].className = "hide";
+        });
+    };
+    $.ajax({
+        url: "{:U('Base/EchoMyVerify',array('t'=>$randtime))}", // 加随机数防止缓存
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+            initGeetest({
+                gt: data.gt,
+                challenge: data.challenge,
+                product: "embed", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
+                offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+            }, handlerEmbed);
+        }
+    });
+</script>
+<link rel="stylesheet" href="__PUBLIC__/Default/Share/css/share.css" type="text/css" />
+<script src="__PUBLIC__/Default/Share/js/share.js"></script>
+<script>
+    $(function() {
+        $("#socialShare").socialShare({
+            content: '{$vo.content|strip_tags|msubstr=0,160,'utf-8',true}',
+            url:'http://<?php echo $_SERVER["SERVER_NAME"];?>__SELF__',
+            titile:'{$articleInfo.title}-{$SiteInfo.title}',
+            pic:'{$articleInfo.pic}'
+        });
+
+    });
+    $("#shareQQ").on("click",function(){
+        $(this).socialShare("tQQ");
+    })
+    $("#luandian").click(function(){
+        $('body').html("<center><h1 style = 'color:#fff;'>都TM告诉你不要乱点了，不相信我是吧，看你现在怎么办</h1><a href = '#' onclick = 'javascript:history.go(-1)' style = 'color:#2f4050;'>返回</a></center>");
+    })
+</script>

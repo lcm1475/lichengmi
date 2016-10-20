@@ -1,0 +1,64 @@
+<!-- 调用头部文件 -->
+<include file = "Public:homeheader" title = "搜索{$Think.get.keywords}-{$SiteInfo.title}" />
+<!-- 本页导航栏开始 -->
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>搜索:{$keywords}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="__APP__">首页</a>
+            </li>
+            <li class="active">
+                <strong>搜索：{$keywords}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<!-- 本页导航栏结束 -->
+
+<!-- 正文开始 -->
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <h2>
+                                {$count}个结果关于: <span class="text-navy">“{$keywords}”</span>
+                            </h2>
+
+                            <div class="search-form">
+                                <form action="{:U('Index/serch')}" method="post">
+                                    <div class="input-group">
+                                        <input placeholder="输入搜索内容" name="keywords" class="form-control input-lg" type="text" required>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-lg btn-primary" type="submit">
+                                                搜索
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <foreach name = "arr" item= "vo">
+                            <div class="hr-line-dashed"></div>
+                            <div class="search-result">
+                                <h3><a href="{:U('Article/index',array('id'=>$vo['id']))}">{$vo.title}</a></h3>
+                                <p>
+                                    {$vo.content|strip_tags|htmlspecialchars|msubstr=0,70,'utf-8',true}
+                                </p>
+                            </div>
+                            </foreach>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                        </div>
+
+        </div>
+    </div>
+    </div>
+<!-- 正文结束 -->
+
+<!-- 调用脚部文件 -->
+<include file = "Public:homefooter"  />

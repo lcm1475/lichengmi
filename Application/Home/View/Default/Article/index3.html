@@ -1,0 +1,34 @@
+<include file = "Article:header" />
+<!-- 正文开始 -->
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12" style="padding:0px;">
+            <div class="col-lg-9">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="text-center article-title" style="margin:20px 0px 20px">
+                            <span class="text-muted">
+                                <h1>
+                                    {$articleInfo.title}
+                                </h1>
+                            </span>
+                            </div>
+                            <div style="margin-bottom:100px;">
+                            <!-- 视频 -->
+                            <script type="text/javascript" src="__PUBLIC__/Default/ckplayer/ckplayer.js"></script>
+                            <div id="a1"></div>
+                            <script type="text/javascript">
+                            var flashvars={
+                                f:'http://movie.ks.js.cn/flv/other/1_0.flv',
+                                c:0,
+                                wh:'16:9'
+                            };
+                            var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always',wmode:'transparent'};
+                            var video=['{$articleInfo.video}'];
+                            CKobject.embed('__PUBLIC__/Default/ckplayer/ckplayer.swf','a1','ckplayer_a1','100%','100%',true,flashvars,video,params);
+                            </script>
+                            <!-- 视频 -->
+
+                          </div>
+
+<include file = "Article:footer" />
